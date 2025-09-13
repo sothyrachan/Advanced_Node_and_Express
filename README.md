@@ -1,3 +1,3 @@
 # Advanced Node and Express
 
-This is the boilerplate for the Advanced Node and Express lessons. Instructions for the lessons start at https://www.freecodecamp.org/learn/quality-assurance/advanced-node-and-express/
+Built a real-time chat app with Node.js and Express.js as part of my learning on freeCodeCamp (this is cloned boilerplate). Implemented secure authentication with Passport.js, reusable templates using Pug, and live client-server communication through WebSockets.
