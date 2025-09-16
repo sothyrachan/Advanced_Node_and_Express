@@ -3,9 +3,10 @@ require('dotenv').config();
 const express = require('express');
 const myDB = require('./connection');
 const fccTesting = require('./freeCodeCamp/fcctesting.js');
-
 const app = express();
+const cors = require('cors');
 
+app.use(cors());
 app.set('view engine', 'pug');
 app.set('views', './views/pug');
 fccTesting(app); // For fCC testing purposes
