@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.route('/').get((req, res) => {
   // Change the response to render the Pug template
-  res.render('index');
+  res.render('index', {title: 'hello', message: 'Please log in'});
 });
 
 const PORT = process.env.PORT || 3000;
