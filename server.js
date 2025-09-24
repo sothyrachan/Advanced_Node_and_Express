@@ -25,6 +25,8 @@ app.use(session({
 app.route('/').get((req, res) => {
   // Change the response to render the Pug template
   res.render('index', {title: 'hello', message: 'Please log in'});
+  passport.initialize();
+  passport.session();
 });
 
 const PORT = process.env.PORT || 3000;
