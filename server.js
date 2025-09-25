@@ -7,6 +7,7 @@ const app = express();
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
+const { ObjectID } = require('mongodb');
 
 app.use(cors());
 app.set('view engine', 'pug');
@@ -21,6 +22,16 @@ app.use(session({
   saveUninitialized: true,
   cookie: {secure: false}
 }))
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  myDataBase.findOne({ _id: new ObjectID(id) }, (err, doc) => {
+    done(null, null);
+  });
+});
 
 app.route('/').get((req, res) => {
   // Change the response to render the Pug template
