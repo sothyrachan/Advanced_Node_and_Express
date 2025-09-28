@@ -8,6 +8,7 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const { ObjectID } = require('mongodb');
+const LocalStrategy = require('passport-local');
 
 app.use(cors());
 app.set('view engine', 'pug');
