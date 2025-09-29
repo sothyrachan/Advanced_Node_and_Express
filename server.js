@@ -2,6 +2,9 @@
 require('dotenv').config();
 const express = require('express');
 const myDB = require('./connection');
+const path = require("path");
+const livereload = require("livereload");
+const connectLivereload = require("connect-livereload");
 const fccTesting = require('./freeCodeCamp/fcctesting.js');
 const app = express();
 const cors = require('cors');
@@ -9,6 +12,23 @@ const session = require('express-session');
 const passport = require('passport');
 const { ObjectID } = require('mongodb');
 const LocalStrategy = require('passport-local');
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch([
+  path.join(__dirname, "views"),   // Pug templates
+  path.join(__dirname, "public")   // Static files (CSS, JS)
+]);
+
+// 🔁 Trigger refresh when livereload connects
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 50);
+});
+
+
+// 2. Inject the LiveReload script into the HTML
+app.use(connectLivereload());
 
 app.use(cors());
 app.set('view engine', 'pug');
@@ -24,7 +44,6 @@ app.use(session({
   cookie: {secure: false}
 }))
 
-
 myDB(async client => {
   const myDataBase = await client.db('database').collection('users');
 
@@ -32,7 +51,8 @@ myDB(async client => {
     // Change the response to render the Pug template
     res.render('index', {
       title: 'Connected to Database',
-      message: 'Please login'
+      message: 'Please login',
+      showLogin: true
     });
   });
 
