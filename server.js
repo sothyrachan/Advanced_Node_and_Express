@@ -66,6 +66,12 @@ myDB(async client => {
     res.render('/profile');
   });
 
+app
+ .route('/profile')
+ .get(ensureAuthenticated, (req,res) => {
+    res.render('/views/pug/profile');
+ });
+
   passport.use(new LocalStrategy((username, password, done) => {
     myDataBase.findOne({ username: username }, (err, user) => {
       console.log(`User ${username} attempted to log in.`);
@@ -92,6 +98,13 @@ myDB(async client => {
     res.render('index', { title: e, message: 'Unable to connect to database' });
   });
 });
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/');
+  };
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
