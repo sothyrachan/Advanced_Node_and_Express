@@ -62,15 +62,11 @@ myDB(async client => {
     res.redirect('/profile');
   });
 
-  app.route('/profile').get((req, res) => {
-    res.render('/profile');
-  });
-
-app
- .route('/profile')
- .get(ensureAuthenticated, (req,res) => {
-    res.render('/views/pug/profile');
- });
+  app
+   .route('/profile')
+   .get(ensureAuthenticated, (req,res) => {
+      res.render('profile');
+   });
 
   passport.use(new LocalStrategy((username, password, done) => {
     myDataBase.findOne({ username: username }, (err, user) => {
