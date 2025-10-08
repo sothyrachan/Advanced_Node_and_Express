@@ -1,6 +1,7 @@
 'use strict';
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet');
 const myDB = require('./connection');
 const path = require("path");
 const livereload = require("livereload");
@@ -30,6 +31,7 @@ liveReloadServer.server.once("connection", () => {
 // 2. Inject the LiveReload script into the HTML
 app.use(connectLivereload());
 
+app.use(helmet());
 app.use(cors());
 app.set('view engine', 'pug');
 app.set('views', './views/pug');
@@ -44,14 +46,9 @@ app.use(session({
   cookie: {secure: false}
 }))
 
+
 myDB(async client => {
   const myDataBase = await client.db('database').collection('users');
-
-  app.route('/logout')
-  .get((req, res) => {
-    req.logout();
-    res.redirect('/');
-});
 
   app.route('/').get((req, res) => {
     // Change the response to render the Pug template
@@ -74,7 +71,12 @@ myDB(async client => {
       res.render('profile', {username: req.user.username});
    });
 
-  
+  app.route('/logout')
+  .get((req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
   app.use((req, res, next) => {
   res.status(404)
     .type('text')
@@ -101,12 +103,13 @@ myDB(async client => {
       done(null, doc);
     });
   });
-  
+
 }).catch(e => {
   app.route('/').get((req, res) => {
     res.render('index', { title: e, message: 'Unable to connect to database' });
   });
 });
+
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
