@@ -45,7 +45,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: {secure: false}
-}))
+}));
 
 
 myDB(async client => {
