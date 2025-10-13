@@ -21,7 +21,6 @@ liveReloadServer.watch([
   path.join(__dirname, "public")   // Static files (CSS, JS)
 ]);
 
-// 🔁 Trigger refresh when livereload connects
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh("/");
