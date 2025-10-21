@@ -1,6 +1,6 @@
 "use strict";
 
-require("dotenv").config();
+require("dotenv").config();;
 
 const passport = require("passport");
 const { ObjectID } = require("mongodb");
