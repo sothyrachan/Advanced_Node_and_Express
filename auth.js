@@ -1,6 +1,6 @@
 "use strict";
 
-require("dotenv").config();;
+require("dotenv").config();
 
 const passport = require("passport");
 const { ObjectID } = require("mongodb");
@@ -103,4 +103,15 @@ module.exports = function (app, myDataBase) {
     }
     res.redirect("/");
   }
+
+  passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: 'https://github.com/sothyrachan'
+},
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    //Database logic here with callback containing your user object
+  }
+));
 };
