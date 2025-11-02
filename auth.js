@@ -1,6 +1,7 @@
 "use strict";
 
 require("dotenv").config();
+require("passport-github");
 
 const passport = require("passport");
 const { ObjectID } = require("mongodb");
