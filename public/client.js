@@ -6,6 +6,10 @@ $(document).ready(function () {
   $('form').submit(function () {
     var messageToSend = $('#m').val();
 
+    socket.on('user count', function(data) {
+      console.log(data);
+    });
+
     $('#m').val('');
     return false; // prevent form submit from refreshing page
   });
