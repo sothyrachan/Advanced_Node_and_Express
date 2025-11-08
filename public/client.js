@@ -10,6 +10,13 @@ $(document).ready(function () {
       console.log(data);
     });
 
+    let currentUsers = 0;
+    io.on('connection', socket => {
+      console.log('A user has connected');
+      ++currentUsers;
+    io.emit('user count', currentUsers);
+  });
+
     $('#m').val('');
     return false; // prevent form submit from refreshing page
   });
