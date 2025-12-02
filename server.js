@@ -4,7 +4,7 @@ require('dotenv').config();
 require('socket.io');
 
 const routes = require('./routes.js');
-const auths = require('./auth.js')
+const auths = require('./auth.js');
 
 const express = require('express');
 const helmet = require('helmet');
