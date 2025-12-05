@@ -54,6 +54,18 @@ app.use(session({
   cookie: {secure: false}
 }));
 
+let currentUsers = 0;
+
+io.on('connection', socket => {
+  currentUsers++;
+  io.emit('user count', currentUsers);
+
+  socket.on('disconnect', () => {
+    currentUsers--;
+    io.emit('user count', currentUsers);
+  });
+});
+
 myDB(async client => {
   const myDataBase = await client.db('database').collection('users');
   routes(app, myDataBase);
@@ -62,20 +74,6 @@ myDB(async client => {
 }).catch(e => {
   app.route('/').get((req, res) => {
     res.render('index', { title: e, message: 'Unable to connect to database' });
-  });
-});
-
-let currentUsers = 0;
-
-io.on('connection', socket => {
-  console.log('A user has connected');
-  currentUsers++;
-  io.emit('user count', currentUsers);
-
-  socket.on('disconnect', () => {
-    console.log('A user has disconnected');
-    currentUsers--;
-    io.emit('user count', currentUsers);
   });
 });
 
