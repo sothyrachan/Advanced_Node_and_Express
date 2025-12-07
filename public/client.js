@@ -1,3 +1,5 @@
+// client.js
+
 /*global io*/
 $(document).ready(function () {
   let socket = io();
