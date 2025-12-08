@@ -21,10 +21,10 @@ const session = require('express-session');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-const passport = require('passport');
-const { ObjectID } = require('mongodb');
-const LocalStrategy = require('passport-local');
-const bcrypt = require('bcrypt');
+// const passport = require('passport');
+// const { ObjectID } = require('mongodb');
+// const LocalStrategy = require('passport-local');
+// const bcrypt = require('bcrypt');
 
 const liveReloadServer = livereload.createServer();
 liveReloadServer.watch([
