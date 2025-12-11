@@ -18,8 +18,16 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-app.use(helmet());
-app.use(cors());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+
+app.use(cors({
+  origin: '*'
+}));
+
 app.set('view engine', 'pug');
 app.set('views', './views/pug');
 
