@@ -69,7 +69,7 @@ myDB(async client => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-http.listen(PORT, () => {
-  console.log(`Listening at http://localhost:${PORT}`);
+const PORT = process.env.PORT || 5000;
+http.listen(PORT, '0.0.0.0', () => {
+  console.log(`Listening at http://0.0.0.0:${PORT}`);
 });
