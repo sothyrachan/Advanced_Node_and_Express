@@ -33,7 +33,7 @@ app.use(
 app.set("view engine", "pug");
 app.set("views", "./views/pug");
 
-fccTesting(app);
+fccTesting(app); // ffc test runner
 
 app.use("/public", express.static(process.cwd() + "/public"));
 app.use(express.json());
