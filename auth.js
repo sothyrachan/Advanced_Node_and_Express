@@ -12,7 +12,6 @@ const GitHubStrategy = require("passport-github");
 
 module.exports = function (app, myDataBase) {
   app.route("/").get((_req, res) => {
-    // Change the response to render the Pug template
     res.render("index", {
       title: "Connected to Database",
       message: "Please login",
@@ -92,7 +91,7 @@ module.exports = function (app, myDataBase) {
     }
   },
   { upsert: true, new: true },
-  (err, doc) => {
+  (_err, doc) => {
     return cb(null, doc.value);
   }
 );
@@ -141,7 +140,6 @@ module.exports = function (app, myDataBase) {
 },
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
-    //Database logic here with callback containing your user object
   }
 ));
 };
