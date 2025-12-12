@@ -11,7 +11,7 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 
 module.exports = function (app, myDataBase) {
-  app.route("/").get((req, res) => {
+  app.route("/").get((_req, res) => {
     // Change the response to render the Pug template
     res.render("index", {
       title: "Connected to Database",
@@ -26,7 +26,7 @@ module.exports = function (app, myDataBase) {
     passport.authenticate("local", {
       failureRedirect: "/",
     }),
-    (req, res) => {
+    (_req, res) => {
       res.redirect("/profile");
     }
   );
@@ -55,7 +55,7 @@ module.exports = function (app, myDataBase) {
       }
     );
 
-  app.use((req, res, next) => {
+  app.use((_req, res, _next) => {
     res.status(404).type("text").send("Not Found");
   });
 
@@ -87,7 +87,7 @@ module.exports = function (app, myDataBase) {
       });
     },
     passport.authenticate("local", { failureRedirect: "/" }),
-    (req, res, next) => {
+    (_req, res, _next) => {
       res.redirect("/profile");
     }
   );
@@ -111,7 +111,7 @@ module.exports = function (app, myDataBase) {
   });
 
   passport.deserializeUser((id, done) => {
-    myDataBase.findOne({ _id: new ObjectID(id) }, (err, doc) => {
+    myDataBase.findOne({ _id: new ObjectID(id) }, (_err, doc) => {
       done(null, doc);
     });
   });

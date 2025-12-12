@@ -11,7 +11,7 @@ const bcrypt = require("bcrypt");
 const GitHubStrategy = require("passport-github");
 
 module.exports = function (app, myDataBase) {
-  app.route("/").get((req, res) => {
+  app.route("/").get((_req, res) => {
     // Change the response to render the Pug template
     res.render("index", {
       title: "Connected to Database",

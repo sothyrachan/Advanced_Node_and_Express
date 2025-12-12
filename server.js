@@ -64,7 +64,7 @@ myDB(async client => {
   });
 
 }).catch(e => {
-  app.route('/').get((req, res) => {
+  app.route('/').get((_req, res) => {
     res.render('index', { title: e, message: 'Unable to connect to database' });
   });
 });
