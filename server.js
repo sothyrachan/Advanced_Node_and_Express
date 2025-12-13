@@ -65,6 +65,10 @@ myDB(async (client) => {
       console.log("User disconnected. Total:", currentUsers);
     });
   });
+
+  socket.on("disconnect", () => {
+    /*anything you want to do on disconnect*/
+  });
 }).catch((e) => {
   app.route("/").get((_req, res) => {
     res.render("index", { title: e, message: "Unable to connect to database" });
