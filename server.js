@@ -86,6 +86,12 @@ myDB(async (client) => {
       fail: onAuthorizeFail,
     }),
   );
+
+  io.emit("user", {
+    username: socket.request.user.username,
+    currentUsers,
+    connected: true,
+  });
 }).catch((e) => {
   app.route("/").get((_req, res) => {
     res.render("index", { title: e, message: "Unable to connect to database" });
