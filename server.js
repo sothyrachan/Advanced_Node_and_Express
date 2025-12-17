@@ -74,6 +74,12 @@ myDB(async (client) => {
       io.emit("user count", currentUsers);
       console.log("User disconnected. Total:", currentUsers);
     });
+
+    io.emit("user", {
+      username: socket.request.user.username,
+      currentUsers,
+      connected: true,
+    });
   });
 
   io.use(
@@ -86,12 +92,6 @@ myDB(async (client) => {
       fail: onAuthorizeFail,
     }),
   );
-
-  io.emit("user", {
-    username: socket.request.user.username,
-    currentUsers,
-    connected: true,
-  });
 }).catch((e) => {
   app.route("/").get((_req, res) => {
     res.render("index", { title: e, message: "Unable to connect to database" });
