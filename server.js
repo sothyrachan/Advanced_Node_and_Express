@@ -75,6 +75,13 @@ myDB(async (client) => {
       console.log("User disconnected. Total:", currentUsers);
     });
 
+    socket.on("chat message", (message) => {
+      io.emit("chat message", {
+        username: socket.request.user.username,
+        message,
+      });
+    });
+
     io.emit("user", {
       username: socket.request.user.username,
       currentUsers,
