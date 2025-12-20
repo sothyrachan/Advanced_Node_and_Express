@@ -79,7 +79,7 @@ myDB(async (client) => {
       io.emit("chat message", {
         username: socket.request.user.username,
         message,
-      });
+      })
     });
 
     io.emit("user", {
